@@ -18,7 +18,6 @@ namespace WFAPersonelTakibi
             InitializeComponent();
         }
 
-
         void ClearForm(Control cls)
         {
 
@@ -44,7 +43,7 @@ namespace WFAPersonelTakibi
                 }
                 else if (control is PictureBox)
                 {
-                    PictureBox pcb = (PictureBox)control; 
+                    PictureBox pcb = (PictureBox)control;
                     foreach (Control item in metroPanel1.Controls)
                     {
                         if (item is MetroRadioButton)
@@ -53,16 +52,14 @@ namespace WFAPersonelTakibi
                             pcb.Image = Image.FromFile(Environment.CurrentDirectory + $@"\..\..\Images\{rd.Name.ToLower().Replace("rd", "")}.jpg");
                         }
                     }
-
                 }
-                else if(control is GroupBox)
+                else if (control is GroupBox)
                 {
                     GroupBox grb = (GroupBox)control;
                     ClearForm(grb);
                 }
             }
         }
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -81,6 +78,23 @@ namespace WFAPersonelTakibi
         }
 
 
+
+        Image GetImage(MetroPanel panel)
+        {
+            foreach (Control item in metroPanel1.Controls)
+            {
+                if (item is MetroRadioButton)
+                {
+                    MetroRadioButton rd = (MetroRadioButton)item;
+
+                    if (rd.Checked)
+                    {
+                        return Image.FromFile(Environment.CurrentDirectory + $@"\..\..\Images\{rd.Name.ToLower().Replace("rd", "")}.jpg");
+                    } 
+                }
+            }
+            return null;
+        }
 
 
         ProjectContext db = new ProjectContext();
@@ -101,20 +115,26 @@ namespace WFAPersonelTakibi
             employee.Phone = txtPhone.Text;
             employee.DepartmentId = (Guid)cmbDepartment.SelectedValue;
 
+            pcbImageUrl.Image = GetImage(metroPanel1);
 
-            foreach (Control item in metroPanel1.Controls)
-            {
-                if (item is MetroRadioButton)
-                {
-                    MetroRadioButton rd = (MetroRadioButton)item;
-                    if (rd.Checked)
-                    {
-                        employee.Gender = (Gender)Enum.Parse(typeof(Gender), rd.Text);
-                    }
-                }
-            }
+            //foreach (Control item in metroPanel1.Controls)
+            //{
+            //    if (item is MetroRadioButton)
+            //    {
+            //        MetroRadioButton rd = (MetroRadioButton)item;
+            //        if (rd.Checked)
+            //        {
+            //            employee.Gender = (Gender)Enum.Parse(typeof(Gender), rd.Text);
+            //        }
+            //    }
+            //}
 
-            // Resim Seçme 
+            // TODO: Resim Seçme 
+
+
+            //string imageName = $"{Guid.NewGuid()}{System.IO.Path.GetExtension(pcbImageUrl.Image)}";  
+            //employee.ImageUrl = imageName;
+
 
             db.Employees.Add(employee);
             bool result = db.SaveChanges() > 0;
@@ -136,6 +156,7 @@ namespace WFAPersonelTakibi
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 pcbImageUrl.Image = Image.FromFile(ofd.FileName);
+                pcbImageUrl.Tag = ofd.FileName;
             }
         }
 
@@ -143,6 +164,13 @@ namespace WFAPersonelTakibi
         {
             MetroRadioButton rd = (MetroRadioButton)sender;
             pcbImageUrl.Image = Image.FromFile(Environment.CurrentDirectory + $@"\..\..\Images\{rd.Name.ToLower().Replace("rd", "")}.jpg");
+        }
+
+        private void metroLink1_Click(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2();
+            this.Hide();
+            frm.ShowDialog();
         }
     }
 }

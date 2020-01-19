@@ -237,6 +237,7 @@
             this.Controls.Add(this.pcbImageUrl);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form3";
+            this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pcbImageUrl)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

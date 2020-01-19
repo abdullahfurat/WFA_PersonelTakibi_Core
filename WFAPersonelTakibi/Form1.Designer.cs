@@ -402,6 +402,7 @@
             this.metroLink1.Text = "Personel Listesi";
             this.metroLink1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.metroLink1.UseSelectable = true;
+            this.metroLink1.Click += new System.EventHandler(this.metroLink1_Click);
             // 
             // Form1
             // 
