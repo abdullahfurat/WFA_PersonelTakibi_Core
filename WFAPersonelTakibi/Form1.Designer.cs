@@ -183,9 +183,9 @@
             this.rdRandom.AutoSize = true;
             this.rdRandom.Location = new System.Drawing.Point(153, 8);
             this.rdRandom.Name = "rdRandom";
-            this.rdRandom.Size = new System.Drawing.Size(57, 15);
+            this.rdRandom.Size = new System.Drawing.Size(68, 15);
             this.rdRandom.TabIndex = 3;
-            this.rdRandom.Text = "Karışık";
+            this.rdRandom.Text = "Random";
             this.rdRandom.UseSelectable = true;
             this.rdRandom.CheckedChanged += new System.EventHandler(this.rdFemale_CheckedChanged);
             // 
